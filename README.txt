@@ -1,5 +1,5 @@
-django_lazymap
-==============
+django_queryset_transform
+=========================
 
 Allows you to register a transforming map function with a Django QuerySet 
 that will be executed only when the QuerySet itself has been evaluated.
@@ -25,7 +25,7 @@ For example:
         for item in item_qs:
             item.fetched_tags = tag_dict.get(item.pk, [])
     
-    qs = Item.objects.filter(name__contains = 'e').lazymap(lookup_tags)
+    qs = Item.objects.filter(name__contains = 'e').transform(lookup_tags)
     
     for item in qs:
         print item, item.fetched_tags
@@ -37,8 +37,8 @@ Prints:
 
 But only executes two SQL queries - one to fetch the items, and one to fetch ALL of the tags for those items.
 
-Since the lazymap function can transform an evaluated QuerySet, it 
-doesn't need to make extra database calls at all - it should work well for 
-things like cache.multi_get() too.
+Since the transformer function can transform an evaluated QuerySet, it 
+doesn't need to make extra database calls at all - it should work for things 
+like looking up additional data from a cache.multi_get() as well.
 
-Inspired by http://github.com/lilspikey/django-batch-select/
+Originally inspired by http://github.com/lilspikey/django-batch-select/

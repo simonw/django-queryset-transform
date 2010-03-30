@@ -26,7 +26,7 @@ def example(request):
         for item in item_qs:
             item.fetched_tags = tag_dict.get(item.pk, [])
     
-    qs = Item.objects.all().lazymap(lookup_tags)
+    qs = Item.objects.all().transform(lookup_tags)
     
     s = []
     
