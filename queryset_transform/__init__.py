@@ -7,12 +7,13 @@ class TransformQuerySet(models.query.QuerySet):
 
     def _clone(self, klass=None, setup=False, **kw):
         c = super(TransformQuerySet, self)._clone(klass, setup, **kw)
-        c._transform_fns = self._transform_fns
+        c._transform_fns = self._transform_fns[:]
         return c
 
     def transform(self, fn):
-        self._transform_fns.append(fn)
-        return self
+        c = self._clone()
+        c._transform_fns.append(fn)
+        return c
 
     def iterator(self):
         result_iter = super(TransformQuerySet, self).iterator()

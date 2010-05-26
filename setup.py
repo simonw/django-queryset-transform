@@ -4,7 +4,7 @@ import os
 setup(
     name = 'django-queryset-transform',
     packages = ['queryset_transform'],
-    version='0.0.1',
+    version='0.0.2',
     description='Experimental .transform(fn) method for Django QuerySets, for '
                 'clever lazily evaluated optimisations.',
     long_description=open('README.txt').read(),
